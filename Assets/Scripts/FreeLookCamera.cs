@@ -29,10 +29,6 @@ public class FreeLookCamera : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        /*//quat
-        Vector3 dir = transform.rotation * Vector3.right;
-        Debug.DrawRay(transform.position, dir * 100, Color.red);*/
-
         //translate
         Vector3 translate = Vector3.zero;
         translate.x = Input.GetAxis("Horizontal");
@@ -46,8 +42,8 @@ public class FreeLookCamera : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject gameObject = Instantiate(explosion, hitInfo.point, Quaternion.identity);
-                Destroy(gameObject, 3);
+                /*GameObject gameObject = Instantiate(explosion, hitInfo.point, Quaternion.identity);
+                Destroy(gameObject, 3);*/
             }
 
            // hitMarker.transform.position = hitInfo.point;

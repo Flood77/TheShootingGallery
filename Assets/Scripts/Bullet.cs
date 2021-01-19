@@ -12,4 +12,9 @@ public class Bullet : MonoBehaviour
         Rigidbody rigidBody = GetComponent<Rigidbody>();
         rigidBody.AddForce(forward * speed, ForceMode.VelocityChange);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Object.Destroy(this);
+    }
 }
