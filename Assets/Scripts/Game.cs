@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     public int Score { get; set; } = 0;
-    public int HighScore { get; set; } = 2000;
+    //public int HighScore { get; set; } = 2000;
     public TextMeshProUGUI scoreUI;
-    public TextMeshProUGUI highScoreUI;
-    public TextMeshProUGUI timerUI;
+    //public TextMeshProUGUI highScoreUI;
+    //public TextMeshProUGUI timerUI;
     public GameObject startScreen;
+    public GameObject gameOverScreen;
 
     static Game instance = null;
 
-    float timer = 90.0f;
+    //float timer = 90.0f;
 
     public enum eState
     {
@@ -37,28 +39,30 @@ public class Game : MonoBehaviour
         switch (State)
         {
             case eState.Title:
+                gameOverScreen.SetActive(false);
                 startScreen.SetActive(true);
                 break;
             case eState.StartGame:
                 startScreen.SetActive(false);
                 Score = 0;
-                timer = 90;
+                //timer = 90;
                 State = eState.Game;
                 GetComponent<AudioSource>().Play();
                 break;
             case eState.Game:
-                timer -= Time.deltaTime;
-                timerUI.text = timer.ToString("0");
+                AddPoints((int)(Time.deltaTime * 100));
+                //timerUI.text = timer.ToString("0");
 
-                if (timer <= 0) State = eState.GameOver;
+                //if (timer <= 0) State = eState.GameOver;
                 break;
             case eState.GameOver:
-                if (Score > HighScore) HighScore = Score;
+                gameOverScreen.SetActive(true);
+                //if (Score > HighScore) HighScore = Score;
                 break;
             default:
                 break;
         }
-        highScoreUI.text = string.Format("{0:D4}", HighScore);
+        //highScoreUI.text = string.Format("{0:D4}", HighScore);
     }
 
     public static Game Instance
@@ -78,5 +82,9 @@ public class Game : MonoBehaviour
     public void StartGame()
     {
         State = eState.StartGame;
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Controller");
     }
 }

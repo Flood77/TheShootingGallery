@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Character : MonoBehaviour
@@ -9,27 +10,28 @@ public class Character : MonoBehaviour
     [Range(0, 20)] public float jump = 1;
     [Range(-20, 20)] public float gravity = -9.8f;
     public Animator animator;
+    public Weapon weapon;
+    public Game game;
 
     CharacterController characterController;
-    Vector3 inputDirection; // field
-    Vector3 velocity;
+    bool onGround = false;
+    Vector3 inputDirection = Vector3.zero;
+    Vector3 velocity = Vector3.zero;
+    Health health;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
     }
 
     void Update()
     {
-        bool onGround = characterController.isGrounded;
+        onGround = characterController.isGrounded;
         if(onGround && velocity.y < 0)
         {
-            velocity.y = 0;
+            velocity.y = 0f;
         }
-
-        inputDirection = Vector3.zero;
-        inputDirection.x = Input.GetAxis("Horizontal");
-        inputDirection.z = Input.GetAxis("Vertical");
 
         Quaternion cameraRotation = Camera.main.transform.rotation;
         Quaternion rotation = Quaternion.AngleAxis(cameraRotation.eulerAngles.y, Vector3.up);
@@ -39,19 +41,49 @@ public class Character : MonoBehaviour
 
         if (inputDirection.magnitude > 0.1f)
         {
-            //transform.forward = inputDirection.normalized;
             Quaternion target = Quaternion.LookRotation(direction.normalized);
             transform.rotation = Quaternion.Lerp(transform.rotation, target, 5 * Time.deltaTime);
         }
         animator.SetFloat("Speed", inputDirection.magnitude);
+        animator.SetBool("onGround", onGround);
+        animator.SetFloat("Velocity.y", velocity.y);
 
-        if(Input.GetButtonDown("Jump") && onGround)
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
+
+        if(health.health <= 0)
+        {
+            animator.SetTrigger("Death");
+            game.State = Game.eState.GameOver;
+        }
+    }
+
+    public void OnFire()
+    {
+        weapon.Fire(transform.forward);
+    }
+
+    public void OnJump()
+    {
+        if (onGround)
         {
             velocity.y += jump;
         }
+    }
 
-        //gravity movement
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+    public void OnMove(InputValue input)
+    {
+        Vector2 v2 = input.Get<Vector2>();
+        inputDirection.x = v2.x;
+        inputDirection.z = v2.y;
+    }
+
+    public void OnPunch()
+    {
+        animator.SetTrigger("Punch");
+    }
+    public void OnThrow()
+    {
+        animator.SetTrigger("Throw");
     }
 }

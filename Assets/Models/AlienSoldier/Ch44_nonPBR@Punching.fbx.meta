@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: db91975758ee620468df7243ac3f7a54
+guid: fd47bc75feeb7f549801f2930f556f8e
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Idle
+    second: Punching
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,30 +35,38 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Punching
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 75
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.36416212
+        functionName: OnCreate
+        data: RightHand
+        objectReferenceParameter: {fileID: 5688410508899934863, guid: 7171d744e4f4d0a48bda6d759eec06fe,
+          type: 3}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

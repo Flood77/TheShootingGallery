@@ -52,13 +52,29 @@ ModelImporter:
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.38556054
+        functionName: OnCreate
+        data: LeftFoot
+        objectReferenceParameter: {fileID: 5926951156436093660, guid: 30a811a048af17847badad86fe88f5a8,
+          type: 3}
+        floatParameter: 0.5
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.904301
+        functionName: OnCreate
+        data: RightFoot
+        objectReferenceParameter: {fileID: 5926951156436093660, guid: 30a811a048af17847badad86fe88f5a8,
+          type: 3}
+        floatParameter: 0.5
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
