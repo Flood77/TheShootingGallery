@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     public float healthMax;
     public float decay;
     public Slider slider;
+    public GameObject destroySpawnObject;
+    public UnityEvent deathEvent;
     public Game game;
     public bool destroyOnDeath = false;
+    public float haha;
 
-    public float health;
+    public float health { get; set; }
+    public bool isDead { get; set; } = false;
 
     void Start()
     {
@@ -29,7 +34,17 @@ public class Health : MonoBehaviour
             }
             slider.value = health / healthMax;
         }
-        if (health <= 0 && destroyOnDeath) GameObject.Destroy(gameObject);
+        if (health <= 0 && !isDead)
+        {
+            isDead = true;
+            deathEvent?.Invoke();
+            if(destroySpawnObject != null)
+            {
+                Instantiate(destroySpawnObject, transform.position, transform.rotation);
+            }
+            if(destroyOnDeath) GameObject.Destroy(gameObject);
+        }
+        haha = health;
     }
 
     public void AddHealth(float amount)
