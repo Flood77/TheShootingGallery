@@ -4,22 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private GameObject startScreen;
-    [SerializeField] private TextMeshProUGUI timerUI;
-    [SerializeField] private TextMeshProUGUI scoreUI;
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TextMeshProUGUI scoreUI;
+    [SerializeField] private TextMeshProUGUI timerUI;
     [SerializeField] private TextMeshProUGUI highScoreUI;
     
     private int score = 0;
     private float timer = 90.0f;
     private int highScore = 2000;
+    private HighScore saves = new HighScore();
 
     static Game instance = null;
     public static Game Instance { get { return instance; } }
-    public eState State { get; set; } = eState.Title;
 
     public enum eState
     {
@@ -28,10 +29,13 @@ public class Game : MonoBehaviour
         Game,
         GameOver
     }
+    public eState State { get; set; } = eState.Title;
 
     private void Awake()
     {
         if (instance == null) instance = this;
+        Cursor.visible = false;
+        highScore = saves.Load();
     }
 
     private void Update()
@@ -58,7 +62,11 @@ public class Game : MonoBehaviour
                 break;
             case eState.GameOver:
                 gameOverScreen.SetActive(true);
-                if (score > highScore) highScore = score;
+                if (score > highScore) 
+                { 
+                    highScore = score;
+                    saves.Save(highScore);
+                }
                 break;
             default:
                 break;
@@ -74,5 +82,15 @@ public class Game : MonoBehaviour
     public void StartGame()
     {
         State = eState.StartGame;
+    }
+
+    public void RestartGame()
+    {
+        State = eState.Title;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

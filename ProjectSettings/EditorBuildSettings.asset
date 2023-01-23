@@ -5,18 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/KeepAwayGame/Scenes/KeepAwayController.unity
-    guid: 8f6186822c104064e950a36750b9bfca
-  - enabled: 1
-    path: Assets/KeepAwayGame/Scenes/KeepAwayMenu.unity
-    guid: db68bec73f8a9f444b2c5a1a004527c7
-  - enabled: 1
-    path: Assets/KeepAwayGame/Scenes/KeepAwayMap 1.unity
-    guid: 26ef4305d537d5f44b1c257224b6430f
+    path: Assets/Scenes/ShootingGallery.unity
+    guid: 97d366a2cd580e24d87367ea17368579
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fcc6337957f09ee42a073f8d1b2cfafc,
       type: 2}
